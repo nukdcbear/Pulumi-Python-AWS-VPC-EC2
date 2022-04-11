@@ -1,0 +1,6 @@
+name: pulum-aws-vpcec2_instance
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: Pulumi Python AWS vpc+ec2 instance
