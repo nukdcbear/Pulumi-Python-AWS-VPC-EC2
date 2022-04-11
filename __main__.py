@@ -73,9 +73,18 @@ ami = ec2.get_ami(owners=["099720109477"],
                 filters=[amiFilter1,amiFilter2]
                 )
 
+instance = ec2.Instance('myinstance',
+                        instance_type="t2.micro",
+                        vpc_security_group_ids=[sg.id],
+                        subnet_id=subnet1.id,
+                        ami=ami.id,
+                        tags={"Name":"dcb-instance"}
+                        )
+
 pulumi.export("vpc_id",vpc.id)
 pulumi.export("subnet1_id",subnet1.id)
 pulumi.export("subnet2_id",subnet2.id)
 pulumi.export("subnet3_id",subnet3.id)
 pulumi.export("securitygroup_id",sg.id)
 pulumi.export("ami_id",ami.id)
+pulumi.export("instance_id",instance.id)
