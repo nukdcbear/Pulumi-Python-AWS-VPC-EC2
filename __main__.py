@@ -65,8 +65,17 @@ sg = ec2.SecurityGroup("mysecuritygroup",
                         tags={"Name":"dcb-sg"}
                         )
 
+amiFilter1 = ec2.GetAmiFilterArgs(name = "name", values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"])
+amiFilter2 = ec2.GetAmiFilterArgs(name = "virtualization-type", values = ["hvm"])
+
+ami = ec2.get_ami(owners=["099720109477"],
+                most_recent=True,
+                filters=[amiFilter1,amiFilter2]
+                )
+
 pulumi.export("vpc_id",vpc.id)
 pulumi.export("subnet1_id",subnet1.id)
 pulumi.export("subnet2_id",subnet2.id)
 pulumi.export("subnet3_id",subnet3.id)
 pulumi.export("securitygroup_id",sg.id)
+pulumi.export("ami_id",ami.id)
